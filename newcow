@@ -1,0 +1,175 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+
+
+//////////////////////////////
+/// FONCTION AFFICHE VACHE ///
+//////////////////////////////
+
+
+void affiche_vache (char *yeux, char *langue, char *queue)
+{
+	printf("        \\   ^__^\n");
+	printf("         \\  (%s)\\_______\n", yeux);
+	printf("            (__)\\       )\\/\\%s\n", queue);
+	printf("             %s ||----w |\n", langue);
+ 	printf("                ||     ||\n\n ");
+}
+
+
+//////////////////////
+/// FONCTION UTILE ///
+//////////////////////
+
+
+int randInRange(int min, int max)
+{
+  static int initialized = 0;
+  if (!initialized) {
+    srand(time(NULL));
+    initialized = 1;
+  }
+  return min + (int) (rand() / ((double) (RAND_MAX) + 1.0) * (max - min + 1));
+}
+
+
+//fonction permettant de renvoyer un nombre aléatoire entre min et max
+
+
+
+///////////////////////////
+/// PROGRAMME PRINCIPAL ///
+///////////////////////////
+
+
+
+int main (int argc, char *argv[])
+{
+	printf("\n");
+	if (argc == 1)
+	{
+		affiche_vache("oo", "  ", "");
+		return 0; 
+		//pour éviter que le programme plante sans arguments
+	}
+	else
+	{
+		if (!strcmp(argv[1], "-e"))
+		{
+			if (argc > 3 && !strcmp(argv[3], "-T"))
+			{
+				affiche_vache(argv[2], argv[4], "");
+			}
+			else
+			{
+				affiche_vache(argv[2], "  ", "");
+			}
+		} //pour traiter le cas -e
+		else
+		{
+			if (!strcmp(argv[1], "-T"))
+			{
+				if (argc > 3 && !strcmp(argv[3], "-e"))
+				{
+					affiche_vache(argv[4], argv[2], "");
+				}
+				else
+				{
+					affiche_vache("oo", argv[2], "");
+				}
+			} //pour traiter le cas -T
+			else
+			{
+				if (!strcmp(argv[1], "-b"))
+				{
+					affiche_vache("==", "  ", "");
+				}
+				else if (!strcmp(argv[1], "-d"))
+				{
+					affiche_vache("xx", "U", "");
+				}
+				else if (!strcmp(argv[1], "-g"))
+                                {
+                                        affiche_vache("$$", "  ", "");
+                                }
+				else if (!strcmp(argv[1], "-p"))
+                                {
+                                        affiche_vache("@@", "  ", "");
+				}
+				else if (!strcmp(argv[1], "-s"))
+                                {
+                                        affiche_vache("**", "U", "");
+                                }
+				else if (!strcmp(argv[1], "-t"))
+                                {
+                                        affiche_vache("--", "  ", "");
+                                }
+				else if (!strcmp(argv[1], "-w"))
+                                {
+                                        affiche_vache("OO", "  ", "");
+                                }
+				else if (!strcmp(argv[1], "-y"))
+                                {
+                                        affiche_vache("..", "  ", "");
+                                } //pour traiter le cas -bdgpstwy
+			}
+		}
+	}
+	//a ce stade, nous avons fini la question 2, on estime que -e -T et -bdgpstwy
+	//sont les seules options intéressantes.
+
+
+	if (!strcmp(argv[1], "--tail"))
+	{
+		int compteur=0;
+		int compteur_long;
+		while (compteur < atoi(argv[2]))
+		{
+			if (compteur > atoi(argv[2])-2)
+			{
+				compteur++ ;
+				affiche_vache("oo", "U", "~");
+				printf("Ma queue mesure 1\n\n");
+			}
+			else
+			{
+				int n = randInRange(2, atoi(argv[2])-1-compteur) ;
+				int long_queue_vache = n/2 ;
+				while (long_queue_vache + compteur > atoi(argv[2]))
+				{
+					n = randInRange(2, atoi(argv[2])) ;
+					long_queue_vache = n/2 ;
+				}
+				char* long_queue ;
+				long_queue = malloc(atoi(argv [2])*sizeof(char));
+				long_queue[0] = '\0';
+				for (compteur_long = 0 ; compteur_long < long_queue_vache ; compteur_long+=2)
+				{
+					long_queue = strcat(long_queue, "~~");
+					compteur+=2 ;
+				}
+				if (n % 2 != 0)
+				{
+					long_queue = strcat(long_queue, "~");
+					compteur++ ;
+					compteur_long++ ;
+				}
+				affiche_vache("oo", "U", long_queue);
+				printf("\nMa queue mesure %d\n\n", compteur_long);
+				free(long_queue);
+			}
+		}
+	}
+
+
+	//a ce stade, nous avons fini la question 3, nous avons choisi de générer un nombre aléatoire pour la longueur de
+	//la queue de la vache, il s'affiche donc plusieurs vaches avec une queue de longueur aléatoire, jusqu'à ce que
+	//l'argument de --tail soit atteint.
+
+	//en quelques sortes la somme de la longueur de toutes les queues est égales à l'argument
+
+	
+}
