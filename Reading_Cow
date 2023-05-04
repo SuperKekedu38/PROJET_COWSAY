@@ -1,0 +1,59 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+#define TAILLEMAX 1000
+
+
+//////////////////////
+/// FONCTION UTILE ///
+//////////////////////
+
+
+void update(){printf("\033[H\033[J");}
+
+
+///////////////////////////
+/// PROGRAMME PRINCIPAL ///
+///////////////////////////
+
+
+int main (int argc, char *argv[])
+{
+    FILE* fichier = NULL ;
+    fichier=fopen(argv[1], "r");
+    char caractere; 
+    char texte[TAILLEMAX]="";  //tableau avec le texte du fichier
+    char aff_texte[TAILLEMAX] = "";  //tableau avec texte affiché dans la bulle
+    if (fichier != NULL)
+    {
+        fgets(texte, TAILLEMAX, fichier);
+        for (int i=0; i<strlen(texte)-1; i++)
+        {
+            update();
+            caractere = texte[i];  //variable que l'on va afficher dans la bouche de la vache
+            strncat(aff_texte, &texte[i], 1);  //concaténation avec la lettre pour afficher 
+            for(int i=0; i<strlen(aff_texte)+4; i++)
+            {
+                printf("-"); //bulle
+            }
+            printf("\n");
+            printf("< %s >\n", aff_texte);
+            for(int i=0; i<strlen(aff_texte)+4; i++)
+            {
+                printf("-"); //bulle
+            }
+            printf("\n");
+            printf("        \\   ^__^\n");
+            printf("         \\  (oo)\\_______\n");
+            printf("            (__)\\       )\\/\\\n");
+            printf("             %c  ||----w |\n", caractere);
+            printf("                ||     ||\n\n ");
+            sleep(1);
+            
+        }
+        
+    }
+    fclose(fichier);
+    return 0;
