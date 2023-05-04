@@ -1,0 +1,17 @@
+i=0     #le cas F(0)=0 ne fonctionne pas puisque cowsay 0 ne marche pas
+j=1
+z=0
+while [ $(expr $i + $j) -le $1 ]
+do
+	z=$(expr $j + $i)
+	i=$j
+	j=$z
+                                          
+	if [ $(expr $j + $i) -gt $1 ]    #si le cas suivant depasse l'argument
+	then
+		cowsay -T U $z
+	else
+		cowsay $z
+		sleep 1
+	fi
+done
