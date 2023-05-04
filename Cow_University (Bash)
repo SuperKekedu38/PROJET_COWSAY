@@ -1,0 +1,25 @@
+
+n=2
+while [ $n -le $1 ]
+do
+	premier=0
+	i=2
+	while [ $i -lt $n ]
+	do
+		if [ $(expr $n % $i) -eq 0 ]
+		then 
+			premier=1
+		fi
+
+	i=$(expr $i + 1)
+	done
+
+if [ $premier -eq 0 ]
+then
+	cowsay $n
+fi
+
+n=$(expr $n + 1)    #compteur n 
+
+done
+cowsay -T U Nombres Premiers
