@@ -1,0 +1,138 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+
+
+//////////////////////////
+/// VARIABLES GLOBALES ///
+//////////////////////////
+
+
+int stock=5;
+int fitness=5;
+int lunchfood;
+int duree_de_vie=0;
+
+
+////////////////////////
+/// FONCTIONS UTILES ///
+////////////////////////
+
+
+int randInRange(int min, int max)
+{
+  static int initialized = 0;
+  if (!initialized) {
+    srand(time(NULL));
+    initialized = 1;
+  }
+  return min + (int) (rand() / ((double) (RAND_MAX) + 1.0) * (max - min + 1));
+}
+
+
+void update(){printf("\033[H\033[J");}
+
+
+/////////////////////
+/// AFFICHE VACHE ///
+/////////////////////
+
+
+void affiche_vache (char *yeux, char *langue)
+{
+	printf("            ^__^\n");
+	printf("            (%s)\\_______\n", yeux);
+	printf("            (__)\\       )\\/\\\n");
+	printf("             %s  ||----w |\n", langue);
+ 	printf("                ||     ||\n\n ");
+}
+
+void vache(nombre)
+{
+    if (nombre == 0)
+    {
+        affiche_vache("xx", "U"); //byebyelife
+    }
+    else if (nombre == 1)
+    {
+        affiche_vache("@@", "V"); //lifesucks
+    }
+    else if (nombre == 2)
+    {
+        affiche_vache("♥♥", "◡"); //liferocks
+    }
+}
+
+
+/////////////////////////////////////////
+/// FONCTIONS GÉNÉRE NOMBRE ALÉATOIRE ///
+/////////////////////////////////////////
+
+
+int stock_update(lunchfood)
+{
+    int crop=randInRange(-3, 3);
+    stock=stock-lunchfood+crop ;
+    if (stock<0)
+    {
+        stock=0;
+    }
+    return stock;
+}
+
+int fitness_update(lunchfood)
+{
+    int digestion=randInRange(-3, 0);
+    fitness=fitness+lunchfood+digestion ;
+    return fitness;
+}
+
+
+///////////////////////////
+/// PROGRAMME PRINCIPAL ///
+///////////////////////////
+
+
+int main(int argc, char *argv[])
+{
+    update();
+    while (fitness>=0 && fitness<=10)  //byebyelife
+    {
+        if (fitness>=4 && fitness<=6)  //liferocks
+        {
+            vache(2);
+            printf("La quantité de stock de nourriture est %d \n\n", stock);
+            printf("Combien veux tu donner à manger à la vache ?\n");
+            scanf("%d", &lunchfood);
+            while (lunchfood > stock)
+            {
+                printf("Combien veux tu donner à manger à la vache ?\n");
+                scanf("%d", &lunchfood);
+            }
+            stock=stock_update(lunchfood);
+            fitness=fitness_update(lunchfood);
+            duree_de_vie++ ;
+        }
+        else  //lifesucks
+        {
+            vache(1);
+            printf("La quantité de stock de nourriture est %d \n\n", stock);
+            printf("Combien veux tu donner à manger à la vache ?\n");
+            scanf("%d", &lunchfood);
+            while (lunchfood > stock)
+            {
+                printf("Combien veux tu donner à manger à la vache ?\n");
+                scanf("%d", &lunchfood);
+            }
+            stock=stock_update(lunchfood);
+            fitness=fitness_update(lunchfood);
+            duree_de_vie++ ;
+        }
+        update();
+    }
+    vache(0);
+    printf("Tu as survécu %d tours\n", duree_de_vie);  //fin de partie
+    return 0;
+}
