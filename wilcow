@@ -1,0 +1,188 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+
+
+////////////////////////
+/// FONCTIONS UTILES ///
+////////////////////////
+
+
+void gotoxy(int x, int y) 
+{
+    printf("\033[%d;%dH", y, x);
+}
+
+void update(){printf("\033[H\033[J");}
+
+
+//////////////////////////////////
+/// FONCTION GRAPHIQUE (ARBRE) ///
+//////////////////////////////////
+
+
+void affiche_arbre()
+{
+	int y=1;
+	gotoxy(2,y);
+	printf("     ____      ");
+	gotoxy(2,y+1);
+	printf("    /    \\     ");
+	gotoxy(2,y+2);
+	printf("   |      |    ");
+	gotoxy(2,y+3);
+	printf("    \\____/\\   ");
+	gotoxy(2,y+4);
+	printf("      ||    o  ");
+	gotoxy(2,y+5);
+	printf("      ||       ");
+	printf("\n\n\n");
+
+}
+
+void affiche_arbre_sans_pomme()
+{
+	int y=1;
+	gotoxy(2,y);
+	printf("     ____      ");
+	gotoxy(2,y+1);
+	printf("    /    \\     ");
+	gotoxy(2,y+2);
+	printf("   |      |    ");
+	gotoxy(2,y+3);
+	printf("    \\____/   ");
+	gotoxy(2,y+4);
+	printf("      ||      ");
+	gotoxy(2,y+5);
+	printf("      ||       ");
+	printf("\n\n\n");
+
+}
+
+
+///////////////////////////
+/// PROGRAMME PRINCIPAL ///
+///////////////////////////
+
+
+int main()
+{
+	int x;
+	int y=2;
+	for (x=40; x>15 ; x-=1)
+	{
+		update();
+		affiche_arbre();
+	   	gotoxy(x, y);
+		printf("            ^__^\n");
+		gotoxy(x, y+1);
+		printf("            (oo)\\_______\n");
+		gotoxy(x, y+2);
+		printf("            (__)\\       )\\/\\\n");
+		gotoxy(x, y+3);
+		printf("                ||----w |\n");
+		gotoxy(x, y+4);
+		printf("                ||     ||\n\n ");
+		usleep(100000);
+	}
+	affiche_arbre();
+	for (int i=3 ; i>0 ; i=i-1)
+	{
+		int x=15 ;
+		update();
+		affiche_arbre();
+		gotoxy(x, y);
+		printf("            ^__^\n");
+		gotoxy(x, y+1);
+		printf("            (oo)\\_______\n");
+		gotoxy(x, y+2);
+		printf("            (__)\\       )\\/\\\n");
+		gotoxy(x, y+3);
+		printf("                ||----w |\n");
+		gotoxy(x, y+4);
+		printf("                ||     ||\n\n ");
+		sleep(1);
+		update();
+		affiche_arbre();
+		gotoxy(x, y);
+		printf("            ^__^\n");
+		gotoxy(x, y+1);
+		printf("            (oo)\\_______\n");
+		gotoxy(x, y+2);
+		printf("            (__)\\       )\\/\\\n");
+		gotoxy(x, y+3);
+		printf("             U  ||----w |\n");
+		gotoxy(x, y+4);
+		printf("                ||     ||\n\n ");
+		usleep(500000);
+	}
+	update();
+	affiche_arbre_sans_pomme();
+	gotoxy(x, y);
+	printf("            ^__^\n");
+	gotoxy(x, y+1);
+	printf("            (oo)\\_______\n");
+	gotoxy(x, y+2);
+	printf("            (__)\\       )\\/\\\n");
+	gotoxy(x, y+3);
+	printf("                ||----w |\n");
+	gotoxy(x, y+4);
+	printf("                ||     ||\n\n ");
+	sleep(1);
+	update();
+
+	for (x=15 ; x<40 ; x=x+1)
+	{
+		update();
+		affiche_arbre_sans_pomme();
+		gotoxy(70, y);
+		printf("            ^__^\n");
+		gotoxy(70, y+1);
+		printf("            (oo)\\_______\n");
+		gotoxy(70, y+2);
+		printf("            (__)\\       )\\/\\\n");
+		gotoxy(70, y+3);
+		printf("                ||----w |\n");
+		gotoxy(70, y+4);
+		printf("                ||     ||\n\n ");
+		gotoxy(x, y);
+		printf("                         ^__^\n");
+		gotoxy(x, y+1);
+		printf("                 _______/(oo)\n");
+		gotoxy(x, y+2);
+		printf("             /\\/(       /(__)\n");
+		gotoxy(x, y+3);
+		printf("                | w----||\n");
+		gotoxy(x, y+4);
+		printf("                ||     ||\n\n ");
+		usleep(100000);
+		
+	}
+	update();
+	update();
+	affiche_arbre_sans_pomme();
+	gotoxy(70, y);
+	printf("            ^__^\n");
+	gotoxy(70, y+1);
+	printf("            (♥♥)\\_______\n");
+	gotoxy(70, y+2);
+	printf("            (__)\\       )\\/\\\n");
+	gotoxy(70, y+3);
+	printf("                ||----w |\n");
+	gotoxy(70, y+4);
+	printf("                ||     ||\n\n ");
+	gotoxy(40, y);
+	printf("                         ^__^\n");
+	gotoxy(40, y+1);
+	printf("                 _______/(♥♥)\n");
+	gotoxy(40, y+2);
+	printf("             /\\/(       /(__)\n");
+	gotoxy(40, y+3);
+	printf("                | w----||\n");
+	gotoxy(40, y+4);
+	printf("                ||     ||\n\n ");
+	sleep(1);
+    return 0;
+}
