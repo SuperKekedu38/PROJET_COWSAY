@@ -1,0 +1,23 @@
+#C'est le jeu du juste prix !
+
+bornesup=$((RANDOM %10000))
+chiffreMystere=$(($RANDOM %bornesup))
+
+trouver=false
+nbcoups=0
+cowsay Vous devez trouver le nombre gagnant entre 0 et $bornesup
+while [ $trouver = false ]
+do
+        ((nbcoups++))
+        read nombre
+        if [ $nombre -eq $chiffreMystere ] ; then
+                trouver=true
+                cowsay -e '$$' Bravo ! Tu as trouvé le nombre gagnant : $chiffreMystere en $nbcoups coups !
+        elif [ $nombre -gt $chiffreMystere ] ; then
+                cowsay -e OO Trop grand !
+                sleep 1
+        else #le cas où le nm donné par l'utilisateur est trop petit
+                cowsay -e oo Trop petit !
+                sleep 1
+        fi
+done
